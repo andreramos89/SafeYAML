@@ -4,7 +4,7 @@
 	<groupId>com.konloch</groupId>
 	<artifactId>safeyaml</artifactId>
 	<version>1.34.1</version>
-
+	<packaging>bundle</packaging>
 	<name>SafeYAML</name>
 	<description>Safe YAML 1.1 parser and emitter for Java.</description>
 	<url>https://konloch.com/SafeYAML/</url>
@@ -47,6 +47,29 @@
 	
 	<build>
 		<plugins>
+			<plugin>
+				<!-- Inherited from oss-base. Generate PackageVersion.java.-->
+				<groupId>com.google.code.maven-replacer-plugin</groupId>
+				<artifactId>replacer</artifactId>
+				<executions>
+					<execution>
+						<id>process-packageVersion</id>
+						<phase>generate-sources</phase>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<version>3.5.0</version>
+				<extensions>true</extensions>
+				<configuration>
+					<instructions>
+						<Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+						<Bundle-Version>${project.version}</Bundle-Version>
+					</instructions>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
